@@ -27,12 +27,25 @@
     window.onload = setInterval(random_data, 1000);
 
     function random_data() {
+        var nform = Intl.NumberFormat('ru-Ru',{minimumSignificantDigits: 2})
         //CPU %
         var cpu = document.getElementById('cpu-usage');
         var cpubar = document.getElementById('cpu-usage-bar');
         var cpu_usage = Math.floor(Math.random() * 100);
         cpu.textContent = cpu_usage.toString() + '%';
         cpubar.setAttribute("style", "width: " + cpu_usage.toString() + '%');
+        //цвет иконки
+        var icon = document.getElementById('icon-u1');
+        var color;
+        if (cpu_usage < 50) {
+            color = "rgb(" + Math.floor(255 / 50.0 * cpu_usage).toString() + ",255" + ",0)"//..Color(cpu_temp / 63, 255, 0);
+            console.log(color);
+        } else {
+            color = "rgb(255," + Math.floor(255 - 255 / 50.0 * (cpu_usage - 50)).toString() + ",0)"// // color = Color(1.0, 1.0 / 63.0 * (cpu_temp - 63), 0);
+            console.log(color);
+
+        }
+        icon.setAttribute("style", "color: " + color.toString());
 
         //CPU Temp
         var cpu_t = document.getElementById('cpu-temp');
@@ -42,11 +55,11 @@
         var icon = document.getElementById('icon-t1');
         var color;
         if (cpu_temp < 64) {
-            color = "rgb("+  Math.floor(255/63.0*cpu_temp).toString()+ ",255" + ",0)"//..Color(cpu_temp / 63, 255, 0);
-            console.log(color);
+            color = "rgb(" + Math.floor(255 / 63.0 * cpu_temp).toString() + ",255" + ",0)"//..Color(cpu_temp / 63, 255, 0);
+            //console.log(color);
         } else {
-            color = "rgb(255,"+  Math.floor(255- 255/63.0*(cpu_temp-63)).toString() + ",0)"// // color = Color(1.0, 1.0 / 63.0 * (cpu_temp - 63), 0);
-            console.log(color);
+            color = "rgb(255," + Math.floor(255 - 255 / 63.0 * (cpu_temp - 63)).toString() + ",0)"// // color = Color(1.0, 1.0 / 63.0 * (cpu_temp - 63), 0);
+            //console.log(color);
 
         }
         icon.setAttribute("style", "color: " + color.toString());
@@ -58,6 +71,18 @@
         var gpu_usage = Math.floor(Math.random() * 100);
         gpu.textContent = gpu_usage.toString() + '%';
         gpubar.setAttribute("style", "width: " + gpu_usage.toString() + '%');
+        //цвет иконки
+        var icon = document.getElementById('icon-u2');
+        var color;
+        if (gpu_usage < 50) {
+            color = "rgb(" + Math.floor(255 / 50.0 * gpu_usage).toString() + ",255" + ",0)"//..Color(cpu_temp / 63, 255, 0);
+            console.log(color);
+        } else {
+            color = "rgb(255," + Math.floor(255 - 255 / 50.0 * (gpu_usage - 50)).toString() + ",0)"// // color = Color(1.0, 1.0 / 63.0 * (cpu_temp - 63), 0);
+            console.log(color);
+
+        }
+        icon.setAttribute("style", "color: " + color.toString());
 
         //GPU Temp
         var gpu_t = document.getElementById('gpu-temp');
@@ -67,11 +92,11 @@
         var icon = document.getElementById('icon-t2');
         var color;
         if (cpu_temp < 64) {
-            color = "rgb("+  Math.floor(255/63.0*gpu_temp).toString()+ ",255" + ",0)"//..Color(cpu_temp / 63, 255, 0);
-            console.log(color);
+            color = "rgb(" + Math.floor(255 / 63.0 * gpu_temp).toString() + ",255" + ",0)"//..Color(cpu_temp / 63, 255, 0);
+           // console.log(color);
         } else {
-            color = "rgb(255,"+  Math.floor(255- 255/63.0*(gpu_temp-63)).toString() + ",0)"// // color = Color(1.0, 1.0 / 63.0 * (cpu_temp - 63), 0);
-            console.log(color);
+            color = "rgb(255," + Math.floor(255 - 255 / 63.0 * (gpu_temp - 63)).toString() + ",0)"// // color = Color(1.0, 1.0 / 63.0 * (cpu_temp - 63), 0);
+            //console.log(color);
 
         }
         icon.setAttribute("style", "color: " + color.toString());
@@ -208,11 +233,11 @@
                 <div class="row">
                     <!-- CPU Usage -->
                     <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card border-left-info shadow h-100 py-2">
+                        <div class="card border-left-success shadow h-100 py-2">
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">CPU Usage
+                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">CPU Usage
                                         </div>
                                         <div class="row no-gutters align-items-center">
                                             <div class="col-auto">
@@ -231,7 +256,7 @@
                                         </div>
                                     </div>
                                     <div class="col-auto">
-                                        <i class="fas fa-solid fa-bolt fa-2x text-gray-300"></i>
+                                        <i id="icon-u1" class="fas fa-solid fa-bolt fa-2x"></i>
                                     </div>
                                 </div>
                             </div>
@@ -247,7 +272,7 @@
                                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                             CPU Temp
                                         </div>
-                                        <div id="cpu-temp" class="h5 mb-0 font-weight-bold text-gray-800">-273</div>
+                                        <div id="cpu-temp" class="h5 mb-0 mr-3 font-weight-bold text-gray-800">-273</div>
                                     </div>
                                     <div class="col-auto">
                                         <i id="icon-t1"
@@ -260,11 +285,11 @@
 
                     <!-- GPU Usage -->
                     <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card border-left-info shadow h-100 py-2">
+                        <div class="card border-left-success shadow h-100 py-2">
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">GPU Usage
+                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">GPU Usage
                                         </div>
                                         <div class="row no-gutters align-items-center">
                                             <div class="col-auto">
@@ -283,7 +308,7 @@
                                         </div>
                                     </div>
                                     <div class="col-auto">
-                                        <i class="fas fa-bolt fa-2x text-gray-300"></i>
+                                        <i id="icon-u2" class="fas fa-bolt fa-2x"></i>
                                     </div>
                                 </div>
                             </div>
@@ -292,11 +317,11 @@
 
                     <!-- GPU Temp -->
                     <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card border-left-warning shadow h-100 py-2">
+                        <div class="card border-left-success shadow h-100 py-2">
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                             GPU Temp
                                         </div>
                                         <div id="gpu-temp" class="h5 mb-0 font-weight-bold text-gray-800">18</div>
