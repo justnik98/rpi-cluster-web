@@ -38,6 +38,18 @@
         var cpu_t = document.getElementById('cpu-temp');
         var cpu_temp = Math.floor(Math.random() * 100);
         cpu_t.textContent = cpu_temp.toString() + " ℃";
+        //цвет иконки
+        var icon = document.getElementById('icon-t1');
+        var color;
+        if (cpu_temp < 64) {
+            color = "rgb("+  Math.floor(255/63.0*cpu_temp).toString()+ ",255" + ",0)"//..Color(cpu_temp / 63, 255, 0);
+            console.log(color);
+        } else {
+            color = "rgb(255,"+  Math.floor(255- 255/63.0*(cpu_temp-63)).toString() + ",0)"// // color = Color(1.0, 1.0 / 63.0 * (cpu_temp - 63), 0);
+            console.log(color);
+
+        }
+        icon.setAttribute("style", "color: " + color.toString());
 
 
         //GPU %
@@ -51,6 +63,18 @@
         var gpu_t = document.getElementById('gpu-temp');
         var gpu_temp = Math.floor(Math.random() * 100);
         gpu_t.textContent = gpu_temp.toString() + " ℃";
+        //цвет иконки
+        var icon = document.getElementById('icon-t2');
+        var color;
+        if (cpu_temp < 64) {
+            color = "rgb("+  Math.floor(255/63.0*gpu_temp).toString()+ ",255" + ",0)"//..Color(cpu_temp / 63, 255, 0);
+            console.log(color);
+        } else {
+            color = "rgb(255,"+  Math.floor(255- 255/63.0*(gpu_temp-63)).toString() + ",0)"// // color = Color(1.0, 1.0 / 63.0 * (cpu_temp - 63), 0);
+            console.log(color);
+
+        }
+        icon.setAttribute("style", "color: " + color.toString());
 
 
     }
@@ -182,7 +206,7 @@
 
                 <!-- Content Row -->
                 <div class="row">
-                    <!-- Earnings (Monthly) Card Example -->
+                    <!-- CPU Usage -->
                     <div class="col-xl-3 col-md-6 mb-4">
                         <div class="card border-left-info shadow h-100 py-2">
                             <div class="card-body">
@@ -214,7 +238,7 @@
                         </div>
                     </div>
 
-                    <!-- Earnings (Monthly) Card Example -->
+                    <!-- CPU Temp -->
                     <div class="col-xl-3 col-md-6 mb-4">
                         <div class="card border-left-success shadow h-100 py-2">
                             <div class="card-body">
@@ -226,14 +250,15 @@
                                         <div id="cpu-temp" class="h5 mb-0 font-weight-bold text-gray-800">-273</div>
                                     </div>
                                     <div class="col-auto">
-                                        <i class="fas fa-solid fa-2x fa-temperature-high text-gray-300"></i>
+                                        <i id="icon-t1"
+                                           class="fas fa-solid fa-2x fa-temperature-high"></i>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Earnings (Monthly) Card Example -->
+                    <!-- GPU Usage -->
                     <div class="col-xl-3 col-md-6 mb-4">
                         <div class="card border-left-info shadow h-100 py-2">
                             <div class="card-body">
@@ -265,7 +290,7 @@
                         </div>
                     </div>
 
-                    <!-- Pending Requests Card Example -->
+                    <!-- GPU Temp -->
                     <div class="col-xl-3 col-md-6 mb-4">
                         <div class="card border-left-warning shadow h-100 py-2">
                             <div class="card-body">
@@ -277,7 +302,7 @@
                                         <div id="gpu-temp" class="h5 mb-0 font-weight-bold text-gray-800">18</div>
                                     </div>
                                     <div class="col-auto">
-                                        <i class="fas fa-solid fa-2x fa-temperature-high text-gray-300"></i>
+                                        <i id="icon-t2" class="fas fa-solid fa-2x fa-temperature-high"></i>
                                     </div>
                                 </div>
                             </div>
