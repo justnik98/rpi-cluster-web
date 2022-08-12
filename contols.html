@@ -19,39 +19,16 @@
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://prismjs.com/themes/prism.css">
+    <link rel="stylesheet" href="https://prismjs.com/plugins/line-numbers/prism-line-numbers.css">
+    <link rel="stylesheet" href="css/prism-live.css">
+    <link rel="stylesheet" href="css/style.css">
 
 </head>
 
 
 <script>
-    window.onload = setInterval(random_data, 1000);
-
-    function random_data() {
-        //CPU %
-        var cpu = document.getElementById('cpu-usage');
-        var cpubar = document.getElementById('cpu-usage-bar');
-        var cpu_usage = Math.floor(Math.random() * 100);
-        cpu.textContent = cpu_usage.toString() + '%';
-        cpubar.setAttribute("style", "width: " + cpu_usage.toString() + '%');
-
-        //CPU Temp
-        var cpu_t = document.getElementById('cpu-temp');
-        var cpu_temp = Math.floor(Math.random() * 100);
-        cpu_t.textContent = cpu_temp.toString() + " ℃";
-
-
-        //GPU %
-        var gpu = document.getElementById('gpu-usage');
-        var gpubar = document.getElementById('gpu-usage-bar');
-        var gpu_usage = Math.floor(Math.random() * 100);
-        gpu.textContent = gpu_usage.toString() + '%';
-        gpubar.setAttribute("style", "width: " + gpu_usage.toString() + '%');
-
-        //GPU Temp
-        var gpu_t = document.getElementById('gpu-temp');
-        var gpu_temp = Math.floor(Math.random() * 100);
-        gpu_t.textContent = gpu_temp.toString() + " ℃";
-    }
+    //window.onload = setInterval(random_data, 1000);
 
     function set_data(type) {
         if (type === 'fan') {
@@ -59,17 +36,16 @@
             var fan_text = document.getElementById('fan-usage');
             var fan_icon = document.getElementById('fanicon');
             var color_fan = document.getElementById('fan-color').value;
-            fan_icon.setAttribute("style", "color:"+ color_fan.toString() + "; opacity: " + (fan / 100).toString() + ';');
+            fan_icon.setAttribute("style", "color:" + color_fan.toString() + "; opacity: " + (fan / 100).toString() + ';');
             fan_text.textContent = fan.toString() + ' %';
         } else if (type === 'pump') {
             var pump = document.getElementById('pump-control').value;
             var pump_text = document.getElementById('pump-usage');
             var pump_icon = document.getElementById('pumpicon');
             var color_pump = document.getElementById('pump-color').value;
-            pump_icon.setAttribute("style", "color:"+ color_pump.toString() + "; opacity: " + (pump / 100).toString() + ';');
+            pump_icon.setAttribute("style", "color:" + color_pump.toString() + "; opacity: " + (pump / 100).toString() + ';');
             pump_text.textContent = pump.toString() + ' %';
         }
-
     }
 </script>
 
@@ -266,11 +242,13 @@
                                         </div>
                                         <div class="row no-gutters align-items-center">
                                             <div class="col-auto" style="margin-right: 20px">
-                                                <input id="fan-color" value="#ff0000" type="color" oninput="set_data('fan')">
+                                                <input id="fan-color" value="#ff0000" type="color"
+                                                       oninput="set_data('fan')">
                                                 <div style="color:#0a53be"> Fan Color</div>
                                             </div>
                                             <div class="col-auto">
-                                                <input  id="pump-color" value="#ff0000" type="color" oninput="set_data('pump')">
+                                                <input id="pump-color" value="#ff0000" type="color"
+                                                       oninput="set_data('pump')">
                                                 <div style="color:#0a53be"> Pump Color</div>
                                             </div>
                                         </div>
@@ -282,6 +260,22 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <!--Отправка кода/команд-->
+                <div>
+                    <script src="/js/prism.js"></script>
+                    <script src="/js/prism-live.js?load=css,html,yaml,javascript"></script>
+
+                    <form action="" method="post">
+                        <p><b>Введите ваш говнокод:</b></p>
+                        <a href="#" onclick="" class="btn btn-success btn-icon-split">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-check"></i>
+                                        </span>
+                            <span class="text">Отправить</span>
+                        </a>
+                        <textarea spellcheck="false" class="prism-live language-html" name="text"></textarea>
+                    </form>
                 </div>
                 <!-- End of Main Content -->
 
@@ -326,6 +320,7 @@
             </div>
         </div>
     </div>
+</div>
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
