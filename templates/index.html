@@ -29,8 +29,18 @@
 <script>
     window.onload = setInterval(random_data, 1000);
 
-    function random_data() {
-        var nform = Intl.NumberFormat('ru-Ru',{minimumSignificantDigits: 2})
+    async function random_data() {
+        let response = await fetch("/get_data");
+
+        if (response.ok) { // если HTTP-статус в диапазоне 200-299
+            // получаем тело ответа (см. про этот метод ниже)
+            let json = await response.json();
+            alert("Success");
+        } else {
+            alert("Ошибка HTTP: " + response.status);
+        }
+
+        var nform = Intl.NumberFormat('ru-Ru', {minimumSignificantDigits: 2})
         //CPU %
         var cpu = document.getElementById('cpu-usage');
         var cpubar = document.getElementById('cpu-usage-bar');
@@ -96,7 +106,7 @@
         var color;
         if (cpu_temp < 64) {
             color = "rgb(" + Math.floor(255 / 63.0 * gpu_temp).toString() + ",255" + ",0)"//..Color(cpu_temp / 63, 255, 0);
-           // console.log(color);
+            // console.log(color);
         } else {
             color = "rgb(255," + Math.floor(255 - 255 / 63.0 * (gpu_temp - 63)).toString() + ",0)"// // color = Color(1.0, 1.0 / 63.0 * (cpu_temp - 63), 0);
             //console.log(color);
