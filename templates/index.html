@@ -31,18 +31,18 @@
 
     async function get_data() {
         let response = await fetch("/get_data");
-
         if (response.ok) { // если HTTP-статус в диапазоне 200-299
             // получаем тело ответа (см. про этот метод ниже)
-            let json = await response.text();
+            let json = await response.json();
+            //let resp = '{"cpu":13, "gpu":30, "cpu_temp":12, "gpu_temp":15}';
+            //let json = JSON.parse(resp)
             console.log(json);
-
-
             var nform = Intl.NumberFormat('ru-Ru', {minimumSignificantDigits: 2})
             //CPU %
             var cpu = document.getElementById('cpu-usage');
             var cpubar = document.getElementById('cpu-usage-bar');
             var cpu_usage = json["cpu"]; //Math.floor(Math.random() * 100);
+            console.log(json["cpu"]);
             cpu.textContent = cpu_usage.toString() + '%';
             cpubar.setAttribute("style", "width: " + cpu_usage.toString() + '%');
             //цвет иконки
@@ -111,11 +111,9 @@
 
             }
             icon.setAttribute("style", "color: " + color.toString());
-        }
-        else {
+        } else {
             alert("Ошибка HTTP: " + response.status);
         }
-
     }
 </script>
 
@@ -286,7 +284,8 @@
                                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                             CPU Temp
                                         </div>
-                                        <div id="cpu-temp" class="h5 mb-0 mr-3 font-weight-bold text-gray-800">-273</div>
+                                        <div id="cpu-temp" class="h5 mb-0 mr-3 font-weight-bold text-gray-800">-273
+                                        </div>
                                     </div>
                                     <div class="col-auto">
                                         <i id="icon-t1"
