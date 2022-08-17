@@ -27,93 +27,94 @@
 
 
 <script>
-    window.onload = setInterval(random_data, 1000);
+    window.onload = setInterval(get_data, 1000);
 
-    async function random_data() {
+    async function get_data() {
         let response = await fetch("/get_data");
 
         if (response.ok) { // если HTTP-статус в диапазоне 200-299
             // получаем тело ответа (см. про этот метод ниже)
             let json = await response.text();
             console.log(json);
-        } else {
+
+
+            var nform = Intl.NumberFormat('ru-Ru', {minimumSignificantDigits: 2})
+            //CPU %
+            var cpu = document.getElementById('cpu-usage');
+            var cpubar = document.getElementById('cpu-usage-bar');
+            var cpu_usage = json["cpu"]; //Math.floor(Math.random() * 100);
+            cpu.textContent = cpu_usage.toString() + '%';
+            cpubar.setAttribute("style", "width: " + cpu_usage.toString() + '%');
+            //цвет иконки
+            var icon = document.getElementById('icon-u1');
+            var color;
+            if (cpu_usage < 50) {
+                color = "rgb(" + Math.floor(255 / 50.0 * cpu_usage).toString() + ",255" + ",0)"//..Color(cpu_temp / 63, 255, 0);
+                console.log(color);
+            } else {
+                color = "rgb(255," + Math.floor(255 - 255 / 50.0 * (cpu_usage - 50)).toString() + ",0)"// // color = Color(1.0, 1.0 / 63.0 * (cpu_temp - 63), 0);
+                console.log(color);
+
+            }
+            icon.setAttribute("style", "color: " + color.toString());
+
+            //CPU Temp
+            var cpu_t = document.getElementById('cpu-temp');
+            var cpu_temp = json["cpu_temp"]; //Math.floor(Math.random() * 100);
+            cpu_t.textContent = cpu_temp.toString() + " ℃";
+            //цвет иконки
+            var icon = document.getElementById('icon-t1');
+            var color;
+            if (cpu_temp < 64) {
+                color = "rgb(" + Math.floor(255 / 63.0 * cpu_temp).toString() + ",255" + ",0)"//..Color(cpu_temp / 63, 255, 0);
+                //console.log(color);
+            } else {
+                color = "rgb(255," + Math.floor(255 - 255 / 63.0 * (cpu_temp - 63)).toString() + ",0)"// // color = Color(1.0, 1.0 / 63.0 * (cpu_temp - 63), 0);
+                //console.log(color);
+
+            }
+            icon.setAttribute("style", "color: " + color.toString());
+
+
+            //GPU %
+            var gpu = document.getElementById('gpu-usage');
+            var gpubar = document.getElementById('gpu-usage-bar');
+            var gpu_usage = json["gpu"];//Math.floor(Math.random() * 100);
+            gpu.textContent = gpu_usage.toString() + '%';
+            gpubar.setAttribute("style", "width: " + gpu_usage.toString() + '%');
+            //цвет иконки
+            var icon = document.getElementById('icon-u2');
+            var color;
+            if (gpu_usage < 50) {
+                color = "rgb(" + Math.floor(255 / 50.0 * gpu_usage).toString() + ",255" + ",0)"//..Color(cpu_temp / 63, 255, 0);
+                console.log(color);
+            } else {
+                color = "rgb(255," + Math.floor(255 - 255 / 50.0 * (gpu_usage - 50)).toString() + ",0)"// // color = Color(1.0, 1.0 / 63.0 * (cpu_temp - 63), 0);
+                console.log(color);
+
+            }
+            icon.setAttribute("style", "color: " + color.toString());
+
+            //GPU Temp
+            var gpu_t = document.getElementById('gpu-temp');
+            var gpu_temp = json["gpu_temp"]//Math.floor(Math.random() * 100);
+            gpu_t.textContent = gpu_temp.toString() + " ℃";
+            //цвет иконки
+            var icon = document.getElementById('icon-t2');
+            var color;
+            if (cpu_temp < 64) {
+                color = "rgb(" + Math.floor(255 / 63.0 * gpu_temp).toString() + ",255" + ",0)"//..Color(cpu_temp / 63, 255, 0);
+                // console.log(color);
+            } else {
+                color = "rgb(255," + Math.floor(255 - 255 / 63.0 * (gpu_temp - 63)).toString() + ",0)"// // color = Color(1.0, 1.0 / 63.0 * (cpu_temp - 63), 0);
+                //console.log(color);
+
+            }
+            icon.setAttribute("style", "color: " + color.toString());
+        }
+        else {
             alert("Ошибка HTTP: " + response.status);
         }
-
-        var nform = Intl.NumberFormat('ru-Ru', {minimumSignificantDigits: 2})
-        //CPU %
-        var cpu = document.getElementById('cpu-usage');
-        var cpubar = document.getElementById('cpu-usage-bar');
-        var cpu_usage = Math.floor(Math.random() * 100);
-        cpu.textContent = cpu_usage.toString() + '%';
-        cpubar.setAttribute("style", "width: " + cpu_usage.toString() + '%');
-        //цвет иконки
-        var icon = document.getElementById('icon-u1');
-        var color;
-        if (cpu_usage < 50) {
-            color = "rgb(" + Math.floor(255 / 50.0 * cpu_usage).toString() + ",255" + ",0)"//..Color(cpu_temp / 63, 255, 0);
-            console.log(color);
-        } else {
-            color = "rgb(255," + Math.floor(255 - 255 / 50.0 * (cpu_usage - 50)).toString() + ",0)"// // color = Color(1.0, 1.0 / 63.0 * (cpu_temp - 63), 0);
-            console.log(color);
-
-        }
-        icon.setAttribute("style", "color: " + color.toString());
-
-        //CPU Temp
-        var cpu_t = document.getElementById('cpu-temp');
-        var cpu_temp = Math.floor(Math.random() * 100);
-        cpu_t.textContent = cpu_temp.toString() + " ℃";
-        //цвет иконки
-        var icon = document.getElementById('icon-t1');
-        var color;
-        if (cpu_temp < 64) {
-            color = "rgb(" + Math.floor(255 / 63.0 * cpu_temp).toString() + ",255" + ",0)"//..Color(cpu_temp / 63, 255, 0);
-            //console.log(color);
-        } else {
-            color = "rgb(255," + Math.floor(255 - 255 / 63.0 * (cpu_temp - 63)).toString() + ",0)"// // color = Color(1.0, 1.0 / 63.0 * (cpu_temp - 63), 0);
-            //console.log(color);
-
-        }
-        icon.setAttribute("style", "color: " + color.toString());
-
-
-        //GPU %
-        var gpu = document.getElementById('gpu-usage');
-        var gpubar = document.getElementById('gpu-usage-bar');
-        var gpu_usage = Math.floor(Math.random() * 100);
-        gpu.textContent = gpu_usage.toString() + '%';
-        gpubar.setAttribute("style", "width: " + gpu_usage.toString() + '%');
-        //цвет иконки
-        var icon = document.getElementById('icon-u2');
-        var color;
-        if (gpu_usage < 50) {
-            color = "rgb(" + Math.floor(255 / 50.0 * gpu_usage).toString() + ",255" + ",0)"//..Color(cpu_temp / 63, 255, 0);
-            console.log(color);
-        } else {
-            color = "rgb(255," + Math.floor(255 - 255 / 50.0 * (gpu_usage - 50)).toString() + ",0)"// // color = Color(1.0, 1.0 / 63.0 * (cpu_temp - 63), 0);
-            console.log(color);
-
-        }
-        icon.setAttribute("style", "color: " + color.toString());
-
-        //GPU Temp
-        var gpu_t = document.getElementById('gpu-temp');
-        var gpu_temp = Math.floor(Math.random() * 100);
-        gpu_t.textContent = gpu_temp.toString() + " ℃";
-        //цвет иконки
-        var icon = document.getElementById('icon-t2');
-        var color;
-        if (cpu_temp < 64) {
-            color = "rgb(" + Math.floor(255 / 63.0 * gpu_temp).toString() + ",255" + ",0)"//..Color(cpu_temp / 63, 255, 0);
-            // console.log(color);
-        } else {
-            color = "rgb(255," + Math.floor(255 - 255 / 63.0 * (gpu_temp - 63)).toString() + ",0)"// // color = Color(1.0, 1.0 / 63.0 * (cpu_temp - 63), 0);
-            //console.log(color);
-
-        }
-        icon.setAttribute("style", "color: " + color.toString());
-
 
     }
 </script>
