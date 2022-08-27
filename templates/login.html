@@ -36,7 +36,12 @@
             },
             body: JSON.stringify(json)
         });
-        console.log(json);
+        if(response.ok){
+            window.location.href = 'index.html';
+        }
+        else{
+            alert(response.status);
+        }
     }
 </script>
 
