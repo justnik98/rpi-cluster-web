@@ -23,6 +23,10 @@
 </head>
 
 <script>
+    window.onload = logout();
+    function logout(){
+        sessionStorage.getItem("auth", "false");
+    }
     async function auth(){
         let json = JSON;
         json["login"] = document.getElementById("login").value;
