@@ -42,13 +42,13 @@
         if (response.ok) { // если HTTP-статус в диапазоне 200-299
             let json = await response.json();
             var nform = Intl.NumberFormat('ru-Ru', {minimumSignificantDigits: 2})
-
+            console.log(JSON);
             //0
             //CPU %
             var cpu = document.getElementById('cpu-usage0');
             var cpubar = document.getElementById('cpu-usage-bar0');
             var cpu_usage = json["cpu_usage0"]; //Math.floor(Math.random() * 100);
-            console.log(json["cpu"]);
+            ////console.log(json["cpu"]);
             cpu.textContent = cpu_usage.toString() + '%';
             cpubar.setAttribute("style", "width: " + cpu_usage.toString() + '%');
             //цвет иконки
@@ -56,10 +56,10 @@
             var color;
             if (cpu_usage < 50) {
                 color = "rgb(" + Math.floor(255 / 50.0 * cpu_usage).toString() + ",255" + ",0)"//..Color(cpu_temp / 63, 255, 0);
-                console.log(color);
+                //console.log(color);
             } else {
                 color = "rgb(255," + Math.floor(255 - 255 / 50.0 * (cpu_usage - 50)).toString() + ",0)"// // color = Color(1.0, 1.0 / 63.0 * (cpu_temp - 63), 0);
-                console.log(color);
+                //console.log(color);
 
             }
             icon.setAttribute("style", "color: " + color.toString());
@@ -73,10 +73,10 @@
             var color;
             if (cpu_temp < 64) {
                 color = "rgb(" + Math.floor(255 / 63.0 * cpu_temp).toString() + ",255" + ",0)"//..Color(cpu_temp / 63, 255, 0);
-                //console.log(color);
+                ////console.log(color);
             } else {
                 color = "rgb(255," + Math.floor(255 - 255 / 63.0 * (cpu_temp - 63)).toString() + ",0)"// // color = Color(1.0, 1.0 / 63.0 * (cpu_temp - 63), 0);
-                //console.log(color);
+                ////console.log(color);
 
             }
             icon.setAttribute("style", "color: " + color.toString());
@@ -93,10 +93,10 @@
             var color;
             if (gpu_usage < 50) {
                 color = "rgb(" + Math.floor(255 / 50.0 * gpu_usage).toString() + ",255" + ",0)"//..Color(cpu_temp / 63, 255, 0);
-                console.log(color);
+                //console.log(color);
             } else {
                 color = "rgb(255," + Math.floor(255 - 255 / 50.0 * (gpu_usage - 50)).toString() + ",0)"// // color = Color(1.0, 1.0 / 63.0 * (cpu_temp - 63), 0);
-                console.log(color);
+                //console.log(color);
 
             }
             icon.setAttribute("style", "color: " + color.toString());
@@ -110,10 +110,10 @@
             var color;
             if (cpu_temp < 64) {
                 color = "rgb(" + Math.floor(255 / 63.0 * gpu_temp).toString() + ",255" + ",0)"//..Color(cpu_temp / 63, 255, 0);
-                // console.log(color);
+                // //console.log(color);
             } else {
                 color = "rgb(255," + Math.floor(255 - 255 / 63.0 * (gpu_temp - 63)).toString() + ",0)"// // color = Color(1.0, 1.0 / 63.0 * (cpu_temp - 63), 0);
-                //console.log(color);
+                ////console.log(color);
 
             }
             icon.setAttribute("style", "color: " + color.toString());
@@ -125,7 +125,7 @@
             var cpu = document.getElementById('cpu-usage1');
             var cpubar = document.getElementById('cpu-usage-bar1');
             var cpu_usage = json["cpu_usage1"]; //Math.floor(Math.random() * 100);
-            console.log(json["cpu"]);
+            //console.log(json["cpu"]);
             cpu.textContent = cpu_usage.toString() + '%';
             cpubar.setAttribute("style", "width: " + cpu_usage.toString() + '%');
             //цвет иконки
@@ -133,10 +133,10 @@
             var color;
             if (cpu_usage < 50) {
                 color = "rgb(" + Math.floor(255 / 50.0 * cpu_usage).toString() + ",255" + ",0)"//..Color(cpu_temp / 63, 255, 0);
-                console.log(color);
+                //console.log(color);
             } else {
                 color = "rgb(255," + Math.floor(255 - 255 / 50.0 * (cpu_usage - 50)).toString() + ",0)"// // color = Color(1.0, 1.0 / 63.0 * (cpu_temp - 63), 0);
-                console.log(color);
+                //console.log(color);
 
             }
             icon.setAttribute("style", "color: " + color.toString());
@@ -150,10 +150,10 @@
             var color;
             if (cpu_temp < 64) {
                 color = "rgb(" + Math.floor(255 / 63.0 * cpu_temp).toString() + ",255" + ",0)"//..Color(cpu_temp / 63, 255, 0);
-                //console.log(color);
+                ////console.log(color);
             } else {
                 color = "rgb(255," + Math.floor(255 - 255 / 63.0 * (cpu_temp - 63)).toString() + ",0)"// // color = Color(1.0, 1.0 / 63.0 * (cpu_temp - 63), 0);
-                //console.log(color);
+                ////console.log(color);
 
             }
             icon.setAttribute("style", "color: " + color.toString());
@@ -170,10 +170,10 @@
             var color;
             if (gpu_usage < 50) {
                 color = "rgb(" + Math.floor(255 / 50.0 * gpu_usage).toString() + ",255" + ",0)"//..Color(cpu_temp / 63, 255, 0);
-                console.log(color);
+                //console.log(color);
             } else {
                 color = "rgb(255," + Math.floor(255 - 255 / 50.0 * (gpu_usage - 50)).toString() + ",0)"// // color = Color(1.0, 1.0 / 63.0 * (cpu_temp - 63), 0);
-                console.log(color);
+                //console.log(color);
 
             }
             icon.setAttribute("style", "color: " + color.toString());
@@ -187,10 +187,10 @@
             var color;
             if (cpu_temp < 64) {
                 color = "rgb(" + Math.floor(255 / 63.0 * gpu_temp).toString() + ",255" + ",0)"//..Color(cpu_temp / 63, 255, 0);
-                // console.log(color);
+                // //console.log(color);
             } else {
                 color = "rgb(255," + Math.floor(255 - 255 / 63.0 * (gpu_temp - 63)).toString() + ",0)"// // color = Color(1.0, 1.0 / 63.0 * (cpu_temp - 63), 0);
-                //console.log(color);
+                ////console.log(color);
 
             }
             icon.setAttribute("style", "color: " + color.toString());
@@ -201,7 +201,7 @@
             var cpu = document.getElementById('cpu-usage2');
             var cpubar = document.getElementById('cpu-usage-bar2');
             var cpu_usage = json["cpu_usage2"]; //Math.floor(Math.random() * 100);
-            console.log(json["cpu"]);
+            //console.log(json["cpu"]);
             cpu.textContent = cpu_usage.toString() + '%';
             cpubar.setAttribute("style", "width: " + cpu_usage.toString() + '%');
             //цвет иконки
@@ -209,10 +209,10 @@
             var color;
             if (cpu_usage < 50) {
                 color = "rgb(" + Math.floor(255 / 50.0 * cpu_usage).toString() + ",255" + ",0)"//..Color(cpu_temp / 63, 255, 0);
-                console.log(color);
+                //console.log(color);
             } else {
                 color = "rgb(255," + Math.floor(255 - 255 / 50.0 * (cpu_usage - 50)).toString() + ",0)"// // color = Color(1.0, 1.0 / 63.0 * (cpu_temp - 63), 0);
-                console.log(color);
+                //console.log(color);
 
             }
             icon.setAttribute("style", "color: " + color.toString());
@@ -226,10 +226,10 @@
             var color;
             if (cpu_temp < 64) {
                 color = "rgb(" + Math.floor(255 / 63.0 * cpu_temp).toString() + ",255" + ",0)"//..Color(cpu_temp / 63, 255, 0);
-                //console.log(color);
+                ////console.log(color);
             } else {
                 color = "rgb(255," + Math.floor(255 - 255 / 63.0 * (cpu_temp - 63)).toString() + ",0)"// // color = Color(1.0, 1.0 / 63.0 * (cpu_temp - 63), 0);
-                //console.log(color);
+                ////console.log(color);
 
             }
             icon.setAttribute("style", "color: " + color.toString());
@@ -246,10 +246,10 @@
             var color;
             if (gpu_usage < 50) {
                 color = "rgb(" + Math.floor(255 / 50.0 * gpu_usage).toString() + ",255" + ",0)"//..Color(cpu_temp / 63, 255, 0);
-                console.log(color);
+                //console.log(color);
             } else {
                 color = "rgb(255," + Math.floor(255 - 255 / 50.0 * (gpu_usage - 50)).toString() + ",0)"// // color = Color(1.0, 1.0 / 63.0 * (cpu_temp - 63), 0);
-                console.log(color);
+                //console.log(color);
 
             }
             icon.setAttribute("style", "color: " + color.toString());
@@ -263,10 +263,10 @@
             var color;
             if (cpu_temp < 64) {
                 color = "rgb(" + Math.floor(255 / 63.0 * gpu_temp).toString() + ",255" + ",0)"//..Color(cpu_temp / 63, 255, 0);
-                // console.log(color);
+                // //console.log(color);
             } else {
                 color = "rgb(255," + Math.floor(255 - 255 / 63.0 * (gpu_temp - 63)).toString() + ",0)"// // color = Color(1.0, 1.0 / 63.0 * (cpu_temp - 63), 0);
-                //console.log(color);
+                ////console.log(color);
 
             }
             icon.setAttribute("style", "color: " + color.toString());
@@ -277,7 +277,7 @@
             var cpu = document.getElementById('cpu-usage3');
             var cpubar = document.getElementById('cpu-usage-bar3');
             var cpu_usage = json["cpu_usage3"]; //Math.floor(Math.random() * 100);
-            console.log(json["cpu"]);
+            //console.log(json["cpu"]);
             cpu.textContent = cpu_usage.toString() + '%';
             cpubar.setAttribute("style", "width: " + cpu_usage.toString() + '%');
             //цвет иконки
@@ -285,10 +285,10 @@
             var color;
             if (cpu_usage < 50) {
                 color = "rgb(" + Math.floor(255 / 50.0 * cpu_usage).toString() + ",255" + ",0)"//..Color(cpu_temp / 63, 255, 0);
-                console.log(color);
+                //console.log(color);
             } else {
                 color = "rgb(255," + Math.floor(255 - 255 / 50.0 * (cpu_usage - 50)).toString() + ",0)"// // color = Color(1.0, 1.0 / 63.0 * (cpu_temp - 63), 0);
-                console.log(color);
+                //console.log(color);
 
             }
             icon.setAttribute("style", "color: " + color.toString());
@@ -302,10 +302,10 @@
             var color;
             if (cpu_temp < 64) {
                 color = "rgb(" + Math.floor(255 / 63.0 * cpu_temp).toString() + ",255" + ",0)"//..Color(cpu_temp / 63, 255, 0);
-                //console.log(color);
+                ////console.log(color);
             } else {
                 color = "rgb(255," + Math.floor(255 - 255 / 63.0 * (cpu_temp - 63)).toString() + ",0)"// // color = Color(1.0, 1.0 / 63.0 * (cpu_temp - 63), 0);
-                //console.log(color);
+                ////console.log(color);
 
             }
             icon.setAttribute("style", "color: " + color.toString());
@@ -322,10 +322,10 @@
             var color;
             if (gpu_usage < 50) {
                 color = "rgb(" + Math.floor(255 / 50.0 * gpu_usage).toString() + ",255" + ",0)"//..Color(cpu_temp / 63, 255, 0);
-                console.log(color);
+                //console.log(color);
             } else {
                 color = "rgb(255," + Math.floor(255 - 255 / 50.0 * (gpu_usage - 50)).toString() + ",0)"// // color = Color(1.0, 1.0 / 63.0 * (cpu_temp - 63), 0);
-                console.log(color);
+                //console.log(color);
 
             }
             icon.setAttribute("style", "color: " + color.toString());
@@ -339,10 +339,10 @@
             var color;
             if (cpu_temp < 64) {
                 color = "rgb(" + Math.floor(255 / 63.0 * gpu_temp).toString() + ",255" + ",0)"//..Color(cpu_temp / 63, 255, 0);
-                // console.log(color);
+                // //console.log(color);
             } else {
                 color = "rgb(255," + Math.floor(255 - 255 / 63.0 * (gpu_temp - 63)).toString() + ",0)"// // color = Color(1.0, 1.0 / 63.0 * (cpu_temp - 63), 0);
-                //console.log(color);
+                ////console.log(color);
 
             }
             icon.setAttribute("style", "color: " + color.toString());
