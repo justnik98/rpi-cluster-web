@@ -33,7 +33,7 @@
         if (sessionStorage.getItem("auth") !== "true") {
           //  window.location.href = 'login';
         } else {
-            setInterval(get_data, 10000);
+            setInterval(get_data, 1000);
         }
     }
     async function get_data() {
@@ -159,7 +159,7 @@
             icon.setAttribute("style", "color: " + color.toString());
 
 
-            //GPU %
+            //MEM %
             var gpu = document.getElementById('mem-usage1');
             var gpubar = document.getElementById('mem-usage-bar1');
             var gpu_usage = json["mem_usage1"];//Math.floor(Math.random() * 100);
@@ -235,7 +235,7 @@
             icon.setAttribute("style", "color: " + color.toString());
 
 
-            //GPU %
+            //MEM %
             var gpu = document.getElementById('mem-usage2');
             var gpubar = document.getElementById('mem-usage-bar2');
             var gpu_usage = json["mem_usage2"];//Math.floor(Math.random() * 100);
@@ -311,14 +311,14 @@
             icon.setAttribute("style", "color: " + color.toString());
 
 
-            //GPU %
+            //MEM %
             var gpu = document.getElementById('mem-usage3');
             var gpubar = document.getElementById('mem-usage-bar3');
             var gpu_usage = json["mem_usage3"];//Math.floor(Math.random() * 100);
             gpu.textContent = gpu_usage.toString() + '%';
             gpubar.setAttribute("style", "width: " + gpu_usage.toString() + '%');
             //цвет иконки
-            var icon = document.getElementById('icon-mu0');
+            var icon = document.getElementById('icon-mu3');
             var color;
             if (gpu_usage < 50) {
                 color = "rgb(" + Math.floor(255 / 50.0 * gpu_usage).toString() + ",255" + ",0)"//..Color(cpu_temp / 63, 255, 0);
