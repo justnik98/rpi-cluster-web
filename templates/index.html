@@ -27,9 +27,18 @@
 
 
 <script>
-    window.onload = setInterval(get_data, 1000);
+    window.onload = check_auth();
 
+    function check_auth(){
+        if(sessionStorage.getItem("auth")!=="true"){
+            window.location.href = 'login';
+        }
+        else{
+            setInterval(get_data, 1000);
+        }
+    }
     async function get_data() {
+
         let response = await fetch("/get_data");
         if (response.ok) { // если HTTP-статус в диапазоне 200-299
             // получаем тело ответа (см. про этот метод ниже)
@@ -112,7 +121,7 @@
             }
             icon.setAttribute("style", "color: " + color.toString());
         } else {
-            alert("Ошибка HTTP: " + response.status);
+           // alert("Ошибка HTTP: " + response.status);
         }
     }
 </script>
@@ -356,7 +365,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2021</span>
+                        <span>Copyright &copy; Iotsource 2022</span>
                     </div>
                 </div>
             </footer>

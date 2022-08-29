@@ -25,8 +25,6 @@
 <script>
     async function auth(){
         let json = JSON;
-        console.log("aAAAA");
-        console.log(document.getElementById("login").value);
         json["login"] = document.getElementById("login").value;
         json["password"] = document.getElementById("password").value;
         let response = await fetch('/auth', {
@@ -37,7 +35,8 @@
             body: JSON.stringify(json)
         });
         if(response.ok){
-            window.location.href = 'index.html';
+            sessionStorage.setItem("auth", "true");
+            window.location.href = 'index';
         }
         else{
             alert(response.status);
@@ -45,7 +44,7 @@
     }
 </script>
 
-<body class="bg-gradient-primary">
+<body style="background-color:#C91E4A;">
 
     <div class="container">
 
@@ -58,7 +57,9 @@
                     <div class="card-body p-0">
                         <!-- Nested Row within Card Body -->
                         <div class="row">
-                            <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+
+                            <img src = "../static/img/rpi.jpg" class="col-lg-6 d-none d-lg-block">
+<!--                            <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>-->
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
@@ -79,7 +80,7 @@
                                                 <input type="checkbox" class="custom-control-input" id="customCheck">
                                             </div>
                                         </div>
-                                        <button class="btn btn-primary btn-user btn-block" onclick="auth()">
+                                        <button style="background-color: #C91E4A;" class="btn btn-primary btn-user btn-block" onclick="auth()">
                                             Login
                                         </button>
                                     </form>
