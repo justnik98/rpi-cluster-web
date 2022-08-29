@@ -28,8 +28,17 @@
 
 
 <script>
-    //window.onload = setInterval(random_data, 1000);
 
+    window.onload = check_auth();
+
+    function check_auth(){
+        if(sessionStorage.getItem("auth")!=="true"){
+            window.location.href = 'login';
+        }
+        else{
+            setInterval(get_data, 1000);
+        }
+    }
     async function set_data(type) {
         let json = JSON;
         if (type === 'fan') {
