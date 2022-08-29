@@ -42,7 +42,7 @@
         if (response.ok) { // если HTTP-статус в диапазоне 200-299
             let json = await response.json();
             var nform = Intl.NumberFormat('ru-Ru', {minimumSignificantDigits: 2})
-            console.log(JSON);
+            console.log(json);
             //0
             //CPU %
             var cpu = document.getElementById('cpu-usage0');
@@ -143,7 +143,7 @@
 
             //CPU Temp
             var cpu_t = document.getElementById('cpu-temp1');
-            var cpu_temp = json["cpu_temp0"]; //Math.floor(Math.random() * 100);
+            var cpu_temp = json["cpu_temp1"]; //Math.floor(Math.random() * 100);
             cpu_t.textContent = cpu_temp.toString() + " ℃";
             //цвет иконки
             var icon = document.getElementById('icon-t1');
@@ -162,7 +162,7 @@
             //GPU %
             var gpu = document.getElementById('mem-usage1');
             var gpubar = document.getElementById('gpu-usage-bar1');
-            var gpu_usage = json["mem_usage0"];//Math.floor(Math.random() * 100);
+            var gpu_usage = json["mem_usage1"];//Math.floor(Math.random() * 100);
             gpu.textContent = gpu_usage.toString() + '%';
             gpubar.setAttribute("style", "width: " + gpu_usage.toString() + '%');
             //цвет иконки
