@@ -29,11 +29,10 @@
 <script>
     window.onload = check_auth();
 
-    function check_auth(){
-        if(sessionStorage.getItem("auth")!=="true"){
-            window.location.href = 'login';
-        }
-        else{
+    function check_auth() {
+        if (sessionStorage.getItem("auth") !== "true") {
+          //  window.location.href = 'login';
+        } else {
             setInterval(get_data, 1000);
         }
     }
@@ -41,16 +40,91 @@
 
         let response = await fetch("/get_data");
         if (response.ok) { // если HTTP-статус в диапазоне 200-299
-            // получаем тело ответа (см. про этот метод ниже)
             let json = await response.json();
-            //let resp = '{"cpu":13, "gpu":30, "cpu_temp":12, "gpu_temp":15}';
-            //let json = JSON.parse(resp)
-            console.log(json);
             var nform = Intl.NumberFormat('ru-Ru', {minimumSignificantDigits: 2})
+
+            //0
             //CPU %
-            var cpu = document.getElementById('cpu-usage');
-            var cpubar = document.getElementById('cpu-usage-bar');
-            var cpu_usage = json["cpu"]; //Math.floor(Math.random() * 100);
+            var cpu = document.getElementById('cpu-usage0');
+            var cpubar = document.getElementById('cpu-usage-bar0');
+            var cpu_usage = json["cpu_usage0"]; //Math.floor(Math.random() * 100);
+            console.log(json["cpu"]);
+            cpu.textContent = cpu_usage.toString() + '%';
+            cpubar.setAttribute("style", "width: " + cpu_usage.toString() + '%');
+            //цвет иконки
+            var icon = document.getElementById('icon-u0');
+            var color;
+            if (cpu_usage < 50) {
+                color = "rgb(" + Math.floor(255 / 50.0 * cpu_usage).toString() + ",255" + ",0)"//..Color(cpu_temp / 63, 255, 0);
+                console.log(color);
+            } else {
+                color = "rgb(255," + Math.floor(255 - 255 / 50.0 * (cpu_usage - 50)).toString() + ",0)"// // color = Color(1.0, 1.0 / 63.0 * (cpu_temp - 63), 0);
+                console.log(color);
+
+            }
+            icon.setAttribute("style", "color: " + color.toString());
+
+            //CPU Temp
+            var cpu_t = document.getElementById('cpu-temp0');
+            var cpu_temp = json["cpu_temp0"]; //Math.floor(Math.random() * 100);
+            cpu_t.textContent = cpu_temp.toString() + " ℃";
+            //цвет иконки
+            var icon = document.getElementById('icon-t0');
+            var color;
+            if (cpu_temp < 64) {
+                color = "rgb(" + Math.floor(255 / 63.0 * cpu_temp).toString() + ",255" + ",0)"//..Color(cpu_temp / 63, 255, 0);
+                //console.log(color);
+            } else {
+                color = "rgb(255," + Math.floor(255 - 255 / 63.0 * (cpu_temp - 63)).toString() + ",0)"// // color = Color(1.0, 1.0 / 63.0 * (cpu_temp - 63), 0);
+                //console.log(color);
+
+            }
+            icon.setAttribute("style", "color: " + color.toString());
+
+
+            //GPU %
+            var gpu = document.getElementById('mem-usage0');
+            var gpubar = document.getElementById('gpu-usage-bar0');
+            var gpu_usage = json["mem_usage0"];//Math.floor(Math.random() * 100);
+            gpu.textContent = gpu_usage.toString() + '%';
+            gpubar.setAttribute("style", "width: " + gpu_usage.toString() + '%');
+            //цвет иконки
+            var icon = document.getElementById('icon-mu0');
+            var color;
+            if (gpu_usage < 50) {
+                color = "rgb(" + Math.floor(255 / 50.0 * gpu_usage).toString() + ",255" + ",0)"//..Color(cpu_temp / 63, 255, 0);
+                console.log(color);
+            } else {
+                color = "rgb(255," + Math.floor(255 - 255 / 50.0 * (gpu_usage - 50)).toString() + ",0)"// // color = Color(1.0, 1.0 / 63.0 * (cpu_temp - 63), 0);
+                console.log(color);
+
+            }
+            icon.setAttribute("style", "color: " + color.toString());
+
+            //GPU Temp
+            var gpu_t = document.getElementById('gpu-temp0');
+            var gpu_temp = json["gpu_temp0"]//Math.floor(Math.random() * 100);
+            gpu_t.textContent = gpu_temp.toString() + " ℃";
+            //цвет иконки
+            var icon = document.getElementById('icon-tg0');
+            var color;
+            if (cpu_temp < 64) {
+                color = "rgb(" + Math.floor(255 / 63.0 * gpu_temp).toString() + ",255" + ",0)"//..Color(cpu_temp / 63, 255, 0);
+                // console.log(color);
+            } else {
+                color = "rgb(255," + Math.floor(255 - 255 / 63.0 * (gpu_temp - 63)).toString() + ",0)"// // color = Color(1.0, 1.0 / 63.0 * (cpu_temp - 63), 0);
+                //console.log(color);
+
+            }
+            icon.setAttribute("style", "color: " + color.toString());
+
+
+
+            //1
+            //CPU %
+            var cpu = document.getElementById('cpu-usage1');
+            var cpubar = document.getElementById('cpu-usage-bar1');
+            var cpu_usage = json["cpu_usage1"]; //Math.floor(Math.random() * 100);
             console.log(json["cpu"]);
             cpu.textContent = cpu_usage.toString() + '%';
             cpubar.setAttribute("style", "width: " + cpu_usage.toString() + '%');
@@ -68,8 +142,8 @@
             icon.setAttribute("style", "color: " + color.toString());
 
             //CPU Temp
-            var cpu_t = document.getElementById('cpu-temp');
-            var cpu_temp = json["cpu_temp"]; //Math.floor(Math.random() * 100);
+            var cpu_t = document.getElementById('cpu-temp1');
+            var cpu_temp = json["cpu_temp0"]; //Math.floor(Math.random() * 100);
             cpu_t.textContent = cpu_temp.toString() + " ℃";
             //цвет иконки
             var icon = document.getElementById('icon-t1');
@@ -86,13 +160,13 @@
 
 
             //GPU %
-            var gpu = document.getElementById('gpu-usage');
-            var gpubar = document.getElementById('gpu-usage-bar');
-            var gpu_usage = json["gpu"];//Math.floor(Math.random() * 100);
+            var gpu = document.getElementById('mem-usage1');
+            var gpubar = document.getElementById('gpu-usage-bar1');
+            var gpu_usage = json["mem_usage0"];//Math.floor(Math.random() * 100);
             gpu.textContent = gpu_usage.toString() + '%';
             gpubar.setAttribute("style", "width: " + gpu_usage.toString() + '%');
             //цвет иконки
-            var icon = document.getElementById('icon-u2');
+            var icon = document.getElementById('icon-mu1');
             var color;
             if (gpu_usage < 50) {
                 color = "rgb(" + Math.floor(255 / 50.0 * gpu_usage).toString() + ",255" + ",0)"//..Color(cpu_temp / 63, 255, 0);
@@ -105,11 +179,11 @@
             icon.setAttribute("style", "color: " + color.toString());
 
             //GPU Temp
-            var gpu_t = document.getElementById('gpu-temp');
-            var gpu_temp = json["gpu_temp"]//Math.floor(Math.random() * 100);
+            var gpu_t = document.getElementById('gpu-temp1');
+            var gpu_temp = json["gpu_temp0"]//Math.floor(Math.random() * 100);
             gpu_t.textContent = gpu_temp.toString() + " ℃";
             //цвет иконки
-            var icon = document.getElementById('icon-t2');
+            var icon = document.getElementById('icon-tg1');
             var color;
             if (cpu_temp < 64) {
                 color = "rgb(" + Math.floor(255 / 63.0 * gpu_temp).toString() + ",255" + ",0)"//..Color(cpu_temp / 63, 255, 0);
@@ -120,8 +194,161 @@
 
             }
             icon.setAttribute("style", "color: " + color.toString());
+
+
+            //2
+            //CPU %
+            var cpu = document.getElementById('cpu-usage2');
+            var cpubar = document.getElementById('cpu-usage-bar2');
+            var cpu_usage = json["cpu_usage2"]; //Math.floor(Math.random() * 100);
+            console.log(json["cpu"]);
+            cpu.textContent = cpu_usage.toString() + '%';
+            cpubar.setAttribute("style", "width: " + cpu_usage.toString() + '%');
+            //цвет иконки
+            var icon = document.getElementById('icon-u2');
+            var color;
+            if (cpu_usage < 50) {
+                color = "rgb(" + Math.floor(255 / 50.0 * cpu_usage).toString() + ",255" + ",0)"//..Color(cpu_temp / 63, 255, 0);
+                console.log(color);
+            } else {
+                color = "rgb(255," + Math.floor(255 - 255 / 50.0 * (cpu_usage - 50)).toString() + ",0)"// // color = Color(1.0, 1.0 / 63.0 * (cpu_temp - 63), 0);
+                console.log(color);
+
+            }
+            icon.setAttribute("style", "color: " + color.toString());
+
+            //CPU Temp
+            var cpu_t = document.getElementById('cpu-temp2');
+            var cpu_temp = json["cpu_temp0"]; //Math.floor(Math.random() * 100);
+            cpu_t.textContent = cpu_temp.toString() + " ℃";
+            //цвет иконки
+            var icon = document.getElementById('icon-t2');
+            var color;
+            if (cpu_temp < 64) {
+                color = "rgb(" + Math.floor(255 / 63.0 * cpu_temp).toString() + ",255" + ",0)"//..Color(cpu_temp / 63, 255, 0);
+                //console.log(color);
+            } else {
+                color = "rgb(255," + Math.floor(255 - 255 / 63.0 * (cpu_temp - 63)).toString() + ",0)"// // color = Color(1.0, 1.0 / 63.0 * (cpu_temp - 63), 0);
+                //console.log(color);
+
+            }
+            icon.setAttribute("style", "color: " + color.toString());
+
+
+            //GPU %
+            var gpu = document.getElementById('mem-usage2');
+            var gpubar = document.getElementById('gpu-usage-bar2");
+            var gpu_usage = json["mem_usage2"];//Math.floor(Math.random() * 100);
+            gpu.textContent = gpu_usage.toString() + '%';
+            gpubar.setAttribute("style", "width: " + gpu_usage.toString() + '%');
+            //цвет иконки
+            var icon = document.getElementById('icon-mu2');
+            var color;
+            if (gpu_usage < 50) {
+                color = "rgb(" + Math.floor(255 / 50.0 * gpu_usage).toString() + ",255" + ",0)"//..Color(cpu_temp / 63, 255, 0);
+                console.log(color);
+            } else {
+                color = "rgb(255," + Math.floor(255 - 255 / 50.0 * (gpu_usage - 50)).toString() + ",0)"// // color = Color(1.0, 1.0 / 63.0 * (cpu_temp - 63), 0);
+                console.log(color);
+
+            }
+            icon.setAttribute("style", "color: " + color.toString());
+
+            //GPU Temp
+            var gpu_t = document.getElementById('gpu-temp2');
+            var gpu_temp = json["gpu_temp2"]//Math.floor(Math.random() * 100);
+            gpu_t.textContent = gpu_temp.toString() + " ℃";
+            //цвет иконки
+            var icon = document.getElementById('icon-tg2');
+            var color;
+            if (cpu_temp < 64) {
+                color = "rgb(" + Math.floor(255 / 63.0 * gpu_temp).toString() + ",255" + ",0)"//..Color(cpu_temp / 63, 255, 0);
+                // console.log(color);
+            } else {
+                color = "rgb(255," + Math.floor(255 - 255 / 63.0 * (gpu_temp - 63)).toString() + ",0)"// // color = Color(1.0, 1.0 / 63.0 * (cpu_temp - 63), 0);
+                //console.log(color);
+
+            }
+            icon.setAttribute("style", "color: " + color.toString());
+
+
+            //3
+            //CPU %
+            var cpu = document.getElementById('cpu-usage3');
+            var cpubar = document.getElementById('cpu-usage-bar3');
+            var cpu_usage = json["cpu_usage3"]; //Math.floor(Math.random() * 100);
+            console.log(json["cpu"]);
+            cpu.textContent = cpu_usage.toString() + '%';
+            cpubar.setAttribute("style", "width: " + cpu_usage.toString() + '%');
+            //цвет иконки
+            var icon = document.getElementById('icon-u3');
+            var color;
+            if (cpu_usage < 50) {
+                color = "rgb(" + Math.floor(255 / 50.0 * cpu_usage).toString() + ",255" + ",0)"//..Color(cpu_temp / 63, 255, 0);
+                console.log(color);
+            } else {
+                color = "rgb(255," + Math.floor(255 - 255 / 50.0 * (cpu_usage - 50)).toString() + ",0)"// // color = Color(1.0, 1.0 / 63.0 * (cpu_temp - 63), 0);
+                console.log(color);
+
+            }
+            icon.setAttribute("style", "color: " + color.toString());
+
+            //CPU Temp
+            var cpu_t = document.getElementById('cpu-temp3');
+            var cpu_temp = json["cpu_temp3"]; //Math.floor(Math.random() * 100);
+            cpu_t.textContent = cpu_temp.toString() + " ℃";
+            //цвет иконки
+            var icon = document.getElementById('icon-t3');
+            var color;
+            if (cpu_temp < 64) {
+                color = "rgb(" + Math.floor(255 / 63.0 * cpu_temp).toString() + ",255" + ",0)"//..Color(cpu_temp / 63, 255, 0);
+                //console.log(color);
+            } else {
+                color = "rgb(255," + Math.floor(255 - 255 / 63.0 * (cpu_temp - 63)).toString() + ",0)"// // color = Color(1.0, 1.0 / 63.0 * (cpu_temp - 63), 0);
+                //console.log(color);
+
+            }
+            icon.setAttribute("style", "color: " + color.toString());
+
+
+            //GPU %
+            var gpu = document.getElementById('mem-usage3');
+            var gpubar = document.getElementById('gpu-usage-bar3');
+            var gpu_usage = json["mem_usage3"];//Math.floor(Math.random() * 100);
+            gpu.textContent = gpu_usage.toString() + '%';
+            gpubar.setAttribute("style", "width: " + gpu_usage.toString() + '%');
+            //цвет иконки
+            var icon = document.getElementById('icon-mu0');
+            var color;
+            if (gpu_usage < 50) {
+                color = "rgb(" + Math.floor(255 / 50.0 * gpu_usage).toString() + ",255" + ",0)"//..Color(cpu_temp / 63, 255, 0);
+                console.log(color);
+            } else {
+                color = "rgb(255," + Math.floor(255 - 255 / 50.0 * (gpu_usage - 50)).toString() + ",0)"// // color = Color(1.0, 1.0 / 63.0 * (cpu_temp - 63), 0);
+                console.log(color);
+
+            }
+            icon.setAttribute("style", "color: " + color.toString());
+
+            //GPU Temp
+            var gpu_t = document.getElementById('gpu-temp3');
+            var gpu_temp = json["gpu_temp3"]//Math.floor(Math.random() * 100);
+            gpu_t.textContent = gpu_temp.toString() + " ℃";
+            //цвет иконки
+            var icon = document.getElementById('icon-tg3');
+            var color;
+            if (cpu_temp < 64) {
+                color = "rgb(" + Math.floor(255 / 63.0 * gpu_temp).toString() + ",255" + ",0)"//..Color(cpu_temp / 63, 255, 0);
+                // console.log(color);
+            } else {
+                color = "rgb(255," + Math.floor(255 - 255 / 63.0 * (gpu_temp - 63)).toString() + ",0)"// // color = Color(1.0, 1.0 / 63.0 * (cpu_temp - 63), 0);
+                //console.log(color);
+
+            }
+            icon.setAttribute("style", "color: " + color.toString());
+
         } else {
-           // alert("Ошибка HTTP: " + response.status);
+            // alert("Ошибка HTTP: " + response.status);
         }
     }
 </script>
@@ -262,13 +489,123 @@
                                         </div>
                                         <div class="row no-gutters align-items-center">
                                             <div class="col-auto">
-                                                <div id="cpu-usage" class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+                                                <div id="cpu-usage0" class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
                                                     50%
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <div class="progress progress-sm mr-2">
-                                                    <div id="cpu-usage-bar" class="progress-bar bg-info"
+                                                    <div id="cpu-usage-bar0" class="progress-bar bg-info"
+                                                         role="progressbar"
+                                                         style="width: 50%" aria-valuenow="50" aria-valuemin="0"
+                                                         aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i id="icon-u0" class="fas fa-solid fa-bolt fa-2x"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CPU Temp -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-success shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                            CPU Temp
+                                        </div>
+                                        <div id="cpu-temp0" class="h5 mb-0 mr-3 font-weight-bold text-gray-800">-273
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i id="icon-t0"
+                                           class="fas fa-solid fa-2x fa-temperature-high"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MEM Usage -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-success shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Memory
+                                            Usage
+                                        </div>
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col-auto">
+                                                <div id="mem-usage0" class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+                                                    50%
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="progress progress-sm mr-2">
+                                                    <div id="gpu-usage-bar0" class="progress-bar bg-info"
+                                                         role="progressbar"
+                                                         style="width: 50%" aria-valuenow="50" aria-valuemin="0"
+                                                         aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i id="icon-mu0" class="fas fa-bolt fa-2x"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- GPU Temp -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-success shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                            GPU Temp
+                                        </div>
+                                        <div id="gpu-temp0" class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i id="icon-tg0" class="fas fa-solid fa-2x fa-temperature-high"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-xl-left font-weight-bold text-gray-900 text-uppercase mb-1">
+                    RPi-1
+                </div>
+                <!-- Content Row -->
+                <div class="row">
+                    <!-- CPU Usage -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-success shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">CPU Usage
+                                        </div>
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col-auto">
+                                                <div id="cpu-usage1" class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+                                                    50%
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="progress progress-sm mr-2">
+                                                    <div id="cpu-usage-bar1" class="progress-bar bg-info"
                                                          role="progressbar"
                                                          style="width: 50%" aria-valuenow="50" aria-valuemin="0"
                                                          aria-valuemax="100"></div>
@@ -293,7 +630,7 @@
                                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                             CPU Temp
                                         </div>
-                                        <div id="cpu-temp" class="h5 mb-0 mr-3 font-weight-bold text-gray-800">-273
+                                        <div id="cpu-temp1" class="h5 mb-0 mr-3 font-weight-bold text-gray-800">-273
                                         </div>
                                     </div>
                                     <div class="col-auto">
@@ -311,17 +648,18 @@
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Memory Usage
+                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Memory
+                                            Usage
                                         </div>
                                         <div class="row no-gutters align-items-center">
                                             <div class="col-auto">
-                                                <div id="gpu-usage" class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+                                                <div id="gpu-usage1" class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
                                                     50%
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <div class="progress progress-sm mr-2">
-                                                    <div id="gpu-usage-bar" class="progress-bar bg-info"
+                                                    <div id="gpu-usage-bar1" class="progress-bar bg-info"
                                                          role="progressbar"
                                                          style="width: 50%" aria-valuenow="50" aria-valuemin="0"
                                                          aria-valuemax="100"></div>
@@ -330,7 +668,7 @@
                                         </div>
                                     </div>
                                     <div class="col-auto">
-                                        <i id="icon-u2" class="fas fa-bolt fa-2x"></i>
+                                        <i id="icon-mu1" class="fas fa-bolt fa-2x"></i>
                                     </div>
                                 </div>
                             </div>
@@ -346,19 +684,239 @@
                                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                             GPU Temp
                                         </div>
-                                        <div id="gpu-temp" class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                        <div id="gpu-temp1" class="h5 mb-0 font-weight-bold text-gray-800">18</div>
                                     </div>
                                     <div class="col-auto">
-                                        <i id="icon-t2" class="fas fa-solid fa-2x fa-temperature-high"></i>
+                                        <i id="icon-tg1" class="fas fa-solid fa-2x fa-temperature-high"></i>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="text-xl-left font-weight-bold text-gray-900 text-uppercase mb-1">
+                    RPi-2
+                </div>
+                <!-- Content Row -->
+                <div class="row">
+                    <!-- CPU Usage -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-success shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">CPU Usage
+                                        </div>
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col-auto">
+                                                <div id="cpu-usage2" class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+                                                    50%
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="progress progress-sm mr-2">
+                                                    <div id="cpu-usage-bar2" class="progress-bar bg-info"
+                                                         role="progressbar"
+                                                         style="width: 50%" aria-valuenow="50" aria-valuemin="0"
+                                                         aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i id="icon-u2" class="fas fa-solid fa-bolt fa-2x"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
+                    <!-- CPU Temp -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-success shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                            CPU Temp
+                                        </div>
+                                        <div id="cpu-temp2" class="h5 mb-0 mr-3 font-weight-bold text-gray-800">-273
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i id="icon-t2"
+                                           class="fas fa-solid fa-2x fa-temperature-high"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
+                    <!-- GPU Usage -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-success shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Memory
+                                            Usage
+                                        </div>
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col-auto">
+                                                <div id="gpu-usage2" class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+                                                    50%
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="progress progress-sm mr-2">
+                                                    <div id="gpu-usage-bar2" class="progress-bar bg-info"
+                                                         role="progressbar"
+                                                         style="width: 50%" aria-valuenow="50" aria-valuemin="0"
+                                                         aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i id="icon-mu2" class="fas fa-bolt fa-2x"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- GPU Temp -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-success shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                            GPU Temp
+                                        </div>
+                                        <div id="gpu-temp2" class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i id="icon-tg2" class="fas fa-solid fa-2x fa-temperature-high"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-xl-left font-weight-bold text-gray-900 text-uppercase mb-1">
+                    RPi-3
+                </div>
+                <!-- Content Row -->
+                <div class="row">
+                    <!-- CPU Usage -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-success shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">CPU Usage
+                                        </div>
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col-auto">
+                                                <div id="cpu-usage3" class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+                                                    50%
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="progress progress-sm mr-2">
+                                                    <div id="cpu-usage-bar3" class="progress-bar bg-info"
+                                                         role="progressbar"
+                                                         style="width: 50%" aria-valuenow="50" aria-valuemin="0"
+                                                         aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i id="icon-u3" class="fas fa-solid fa-bolt fa-2x"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CPU Temp -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-success shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                            CPU Temp
+                                        </div>
+                                        <div id="cpu-temp3" class="h5 mb-0 mr-3 font-weight-bold text-gray-800">-273
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i id="icon-t3"
+                                           class="fas fa-solid fa-2x fa-temperature-high"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- GPU Usage -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-success shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Memory
+                                            Usage
+                                        </div>
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col-auto">
+                                                <div id="gpu-usage3" class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+                                                    50%
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="progress progress-sm mr-2">
+                                                    <div id="gpu-usage-bar3" class="progress-bar bg-info"
+                                                         role="progressbar"
+                                                         style="width: 50%" aria-valuenow="50" aria-valuemin="0"
+                                                         aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i id="icon-mu3" class="fas fa-bolt fa-2x"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- GPU Temp -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-success shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                            GPU Temp
+                                        </div>
+                                        <div id="gpu-temp3" class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i id="icon-tg3" class="fas fa-solid fa-2x fa-temperature-high"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+
             <!-- End of Main Content -->
 
             <!-- Footer -->
